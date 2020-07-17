@@ -27,6 +27,14 @@
     http://reprap.org/pipermail/reprap-dev/2011-May/003323.html
  */
 
+/*
+The primary modification to this file for use with PancakeBot is controlling the vacuum pump speed using a case 106 & 107.
+M106 and M107 typically are used as fan on and fan off GCode comands but for the PancakeBot variant, M106 and M107
+Dispense the batter or stop it from dispensing (respectively).
+Other elements which change the duel time need to be included also.
+*/
+
+
 #include "Marlin.h"
 
 #ifdef ENABLE_AUTO_BED_LEVELING
@@ -558,6 +566,7 @@ void servo_init()
 
 void setup()
 {
+  //This is the pinMode set up for the Vacuum Pump for PancakeBot	
   pinMode(AIR_PUMP,OUTPUT); // AIR PUMP DEFAULT LOW
   WRITE(AIR_PUMP,LOW);
   pinMode(LED_SDERROR,OUTPUT); // Sd car errol pin
@@ -2660,7 +2669,11 @@ Sigma_Exit:
         previous_millis_cmd = millis();
     #endif
         break;
-
+      // Control of Vacuum Pump for PancakeBot.
+      // FAN_PIN is connected to the potentiometer or knob on the control panel of the PancakeBot
+      // The M106 and M107 commands are used to trigger the dispenser on or off by switching the solenoid valves
+      // that control the diretion of either the Vacuum of Pressure flow into the bottle.
+      
     #if defined(FAN_PIN) && FAN_PIN > -1
       case 106: //M106 Fan On
         st_synchronize();
