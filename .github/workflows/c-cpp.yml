@@ -18,14 +18,12 @@ jobs:
       run: |
         wget https://downloads.arduino.cc/arduino-1.0.5-linux64.tgz
         tar zxvf arduino-1.0.5-linux64.tgz
-        ls
     - name: download font
       run: |
         cd U8glib
         mkdir fntsrc
         cd fntsrc
         wget https://raw.githubusercontent.com/olikraus/u8glib/master/fntsrc/u8g_font_courb14r.c
-        ls
     - name: make
       run: make HARDWARE_MOTHERBOARD=33 ARDUINO_INSTALL_DIR=arduino-1.0.5/
     - name: Upload firmware files (elf+hex)
