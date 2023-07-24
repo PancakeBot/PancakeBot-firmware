@@ -219,6 +219,9 @@ TARGET = $(notdir $(CURDIR))
 # directory is added here
 
 VPATH = .
+VPATH += $(CURDIR)/U8glib
+VPATH += $(CURDIR)/U8glib/utility
+VPATH += $(CURDIR)/U8glib/fntsrc
 VPATH += $(BUILD_DIR)
 VPATH += $(HARDWARE_SRC)
 ifeq ($(HARDWARE_VARIANT), arduino)
@@ -267,6 +270,12 @@ CXXSRC = WMath.cpp WString.cpp Print.cpp Marlin_main.cpp	\
 	stepper.cpp temperature.cpp cardreader.cpp ConfigurationStore.cpp \
 	watchdog.cpp SPI.cpp Servo.cpp Tone.cpp ultralcd.cpp digipot_mcp4451.cpp \
 	vector_3.cpp qr_solve.cpp
+# u8glib source files
+SRC += u8g_ll_api.c u8g_rot.c u8g_font.c u8g_bitmap.c u8g_rect.c u8g_clip.c \
+    u8g_dev_st7565_dogm132.c u8g_com_api.c u8g_pb.c u8g_pb8v1.c \
+	u8g_com_arduino_sw_spi.c u8g_state.c u8g_com_arduino_common.c \
+	u8g_delay.c u8g_page.c u8g_font_courb14r.c
+CXXSRC += U8glib.cpp
 ifeq ($(LIQUID_TWI2), 0)
 CXXSRC += LiquidCrystal.cpp
 else

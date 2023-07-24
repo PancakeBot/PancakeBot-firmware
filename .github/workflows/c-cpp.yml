@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: Build
 
 on:
   push:
@@ -8,16 +8,26 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: configure
-      run: ./configure
+    - uses: actions/checkout@v3
+    - name: install avr gcc compiler
+      run: |
+        sudo apt-get install avr-libc
+    - name: download arduino
+      run: |
+        wget https://downloads.arduino.cc/arduino-1.0.5-linux64.tgz
+        tar zxvf arduino-1.0.5-linux64.tgz
+    - name: download font
+      run: |
+        cd U8glib
+        mkdir fntsrc
+        cd fntsrc
+        wget https://raw.githubusercontent.com/olikraus/u8glib/master/fntsrc/u8g_font_courb14r.c
     - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
+      run: make HARDWARE_MOTHERBOARD=33 ARDUINO_INSTALL_DIR=arduino-1.0.5
+    - name: Upload firmware files (elf+hex)
+      uses: actions/upload-artifact@v3
+      with:
+        name: firmware
+        path: applet/PancakeBot-firmware*
