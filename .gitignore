@@ -3,6 +3,7 @@
 *.lo
 *.o
 *.obj
+*.d
 
 # Precompiled Headers
 *.gch
@@ -27,3 +28,7 @@
 *.exe
 *.out
 *.app
+
+# Embedded
+*.elf
+*.hex
