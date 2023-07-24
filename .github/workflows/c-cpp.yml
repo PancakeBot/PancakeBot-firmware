@@ -28,4 +28,9 @@ jobs:
         ls
     - name: make
       run: make HARDWARE_MOTHERBOARD=33 ARDUINO_INSTALL_DIR=arduino-1.0.5/
+    - name: Upload firmware files (elf+hex)
+      uses: actions/upload-artifact@v3
+      with:
+        name: firmware
+        path: applet/PancakeBot-firmware*
 
