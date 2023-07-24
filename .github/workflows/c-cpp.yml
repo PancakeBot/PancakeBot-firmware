@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - name: install avr gcc compiler
+      run: |
+        sudo apt-get install avr-libc
     - name: download arduino
       run: |
         wget https://downloads.arduino.cc/arduino-1.0.5-linux64.tgz
